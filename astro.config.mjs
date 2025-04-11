@@ -1,11 +1,21 @@
-import { defineConfig } from 'astro/config';
-import tailwind from '@astrojs/tailwind';
+import { defineConfig } from "astro/config";
+import tailwind from "@astrojs/tailwind";
 import node from "@astrojs/node";
+import icon from "astro-icon";
+import react from "@astrojs/react";
 
 export default defineConfig({
-  integrations: [tailwind()],
-  output: 'server',
+  integrations: [
+    tailwind(),
+    react(),
+    icon({
+      include: {
+        'heroicons': ['*'] // Include all heroicons
+      }
+    }),
+  ],
+  output: "server",
   adapter: node({
-    mode: 'standalone'
-  })
+    mode: "standalone",
+  }),
 });

@@ -1,0 +1,35 @@
+---
+import Heading from "../ui/Heading.astro";
+import Button from "../ui/Button.astro";
+// Removed or corrected import for "dudas.css"
+
+const whatsappUrl = "https://wa.me/59898150140?text=Hola%20Magnolia%2C%20me%20gustaría%20consultar%20sobre";
+const title = "¿Te gustaría transformar tus espacios?";
+const subtitle = "No dudes en contactarnos";
+const buttonText = "Escríbenos por WhatsApp";
+const buttonIcon = "whatsapp";
+---
+
+<section class="contact-section">
+  <div class="contact-gradient">
+    <div class="contact-container">
+      <div class="contact-content">
+        <div class="contact-heading">
+          <Heading
+            text={title}
+            textGradient={subtitle}
+            level={2}
+          />
+        </div>
+        <div class="contact-button-wrapper">   
+          <Button
+            variant="big"
+            link={whatsappUrl}
+            text={buttonText}
+            iconName={buttonIcon}
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

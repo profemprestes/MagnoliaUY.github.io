@@ -1,0 +1,35 @@
+---
+import '../styles/components/herocontacto.css';
+import Background from '../assets/background.svg?url';
+import EnvelopeIcon from '../icons/envelope.svg?url';
+import WhatsappIcon from '../icons/whatsapp.svg?url';
+import MapMarkerIcon from '../icons/map-marker.svg?url';
+---
+
+<section class="hero-section">
+  <img src={Background} alt="" class="hero-background" />
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+    <h1 class="hero-title">
+      Conecta con <span class="hero-highlight">Magnolia</span>
+    </h1>
+    <p class="hero-description">
+      Estamos aquí para ayudarte a transformar tus espacios con nuestras creaciones artesanales
+    </p>
+    <div class="contact-grid">
+      <a href="mailto:magnolia_uy@outlook.com" class="contact-item">
+        <img src={EnvelopeIcon} alt="Email" class="contact-icon" />
+        <span>magnolia_uy@outlook.com</span>
+      </a>
+      <a href="https://wa.me/59898150140" class="contact-item">
+        <img src={WhatsappIcon} alt="WhatsApp" class="contact-icon" />
+        <span>+598 98 150 140</span>
+      </a>
+      <a href="#location" class="contact-item">
+        <img src={MapMarkerIcon} alt="Location" class="contact-icon" />
+        <span>Montevideo, Uruguay</span>
+      </a>
+    </div>
+  </div>
+</section>

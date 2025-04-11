@@ -7,7 +7,9 @@
 }
 
 .header-logo .logo-text {
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease;
 }
 
 /* Scrolled state */
@@ -24,7 +26,7 @@
   .header-logo img {
     height: 32px;
   }
-  
+
   .header-logo .logo-text {
     font-size: 1.5rem;
   }
@@ -34,7 +36,7 @@
   .header-logo img {
     height: 28px;
   }
-  
+
   .header-logo .logo-text {
     display: none;
   }

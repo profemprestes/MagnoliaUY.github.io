@@ -1,0 +1,399 @@
+.contact-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.contact-container h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #333;
+  font-size: 2.5rem;
+}
+
+.contact-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.contact-details,
+.payment-methods,
+.shipping-info {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.contact-details h2,
+.payment-methods h2,
+.shipping-info h2 {
+  color: #444;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+}
+
+.contact-details p {
+  margin: 1rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.contact-details i {
+  color: #666;
+  width: 20px;
+}
+
+.payment-methods ul {
+  list-style: none;
+  padding: 0;
+}
+
+.payment-methods li {
+  margin: 0.5rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.payment-methods li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #666;
+}
+
+.shipping-info p {
+  margin: 0.5rem 0;
+  line-height: 1.6;
+}
+
+.map-container {
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.contact-message-container {
+  max-width: 800px;
+  margin: 3rem auto;
+  padding: 0 1rem;
+  animation: slideUp 0.6s ease-out forwards;
+}
+
+.message-box {
+  position: relative;
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.message-box:hover {
+  transform: translateY(-5px);
+}
+
+.message-icon {
+  margin-bottom: 1.5rem;
+}
+
+.message-icon i {
+  font-size: 2.5rem;
+  color: #333;
+  opacity: 0;
+  animation: fadeInScale 0.5s ease-out 0.3s forwards;
+}
+
+.message-text {
+  font-family: "Lato", sans-serif;
+  font-size: 1.2rem;
+  color: #555;
+  line-height: 1.6;
+  margin: 0;
+  opacity: 0;
+  animation: fadeIn 0.5s ease-out 0.5s forwards;
+}
+
+.message-decoration {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #333 0%, #666 100%);
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: expandLine 0.6s ease-out 0.8s forwards;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes expandLine {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-message-container {
+    margin: 2rem auto;
+  }
+
+  .message-box {
+    padding: 1.5rem;
+  }
+
+  .message-icon i {
+    font-size: 2rem;
+  }
+
+  .message-text {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-container {
+    margin: 1rem auto;
+  }
+
+  .contact-container h1 {
+    font-size: 2rem;
+  }
+
+  .contact-info {
+    grid-template-columns: 1fr;
+  }
+}
+
+.contact-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  opacity: 0;
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.contact-card {
+  background: linear-gradient(145deg, #ffffff, #f5f5f5);
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInCard 0.6s ease-out forwards;
+}
+
+.contact-card:nth-child(1) {
+  animation-delay: 0.2s;
+}
+.contact-card:nth-child(2) {
+  animation-delay: 0.4s;
+}
+.contact-card:nth-child(3) {
+  animation-delay: 0.6s;
+}
+
+.contact-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  background: linear-gradient(135deg, #2c3e50, #34495e);
+  color: white;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-header::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: 0.5s;
+}
+
+.card-header:hover::after {
+  left: 100%;
+}
+
+.card-header i {
+  font-size: 1.75rem;
+  color: #ecf0f1;
+  transition: transform 0.3s ease;
+}
+
+.contact-card:hover .card-header i {
+  transform: scale(1.2) rotate(5deg);
+}
+
+.card-content {
+  padding: 1.8rem;
+  background: white;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.9rem 0;
+  color: #2c3e50;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-item:hover {
+  color: #3498db;
+  transform: translateX(10px);
+}
+
+.contact-item i {
+  transition: transform 0.3s ease;
+}
+
+.contact-item:hover i {
+  transform: scale(1.2);
+}
+
+.payment-list li {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.9rem 0;
+  transition: all 0.3s ease;
+}
+
+.payment-list li:hover {
+  transform: translateX(10px);
+  color: #3498db;
+}
+
+.payment-list li i {
+  transition: transform 0.3s ease;
+}
+
+.payment-list li:hover i {
+  transform: scale(1.2);
+}
+
+.shipping-status {
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #2c3e50;
+  position: relative;
+  display: inline-block;
+}
+
+.shipping-status::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #3498db;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+  transform-origin: left;
+}
+
+.shipping-status:hover::after {
+  transform: scaleX(1);
+}
+
+.map-container {
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInMap 0.8s ease-out 0.8s forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInCard {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInMap {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive adjustments remain the same */
