@@ -53,5 +53,6 @@
   },
   "engines": {
     "node": ">=18.14.1"
-  }
+  },
+  "packageManager": "pnpm@10.8.0+sha1.ae60ea225bbd6b1f51cd17e91b40431c8b12a052"
 }

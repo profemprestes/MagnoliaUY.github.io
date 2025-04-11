@@ -7,5 +7,7 @@
   },
   "tailwindCSS.includeLanguages": {
     "astro": "html"
-  }
+  },
+  "IDX.aI.enableInlineCompletion": true,
+  "IDX.aI.enableCodebaseIndexing": true
 }
