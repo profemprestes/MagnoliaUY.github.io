@@ -1,0 +1,48 @@
+---
+export interface Props {
+  id: number;
+  name: string;
+  price: number;
+  quantity: number;
+  image: string;
+}
+
+const { id, name, price, quantity, image } = Astro.props;
+---
+
+<div class="flex items-center gap-4 py-4 border-b border-magnolia-earth/10">
+  <img 
+    src={image} 
+    alt={name}
+    class="w-24 h-24 object-cover rounded-lg"
+    width="96"
+    height="96"
+  />
+  <div class="flex-1">
+    <h3 class="font-cormorant text-xl text-magnolia-earth">{name}</h3>
+    <p class="text-magnolia-earth/70">${price} UYU</p>
+  </div>
+  <div class="flex items-center gap-2">
+    <button 
+      class="quantity-btn decrease w-8 h-8 rounded-full border-2 border-magnolia-earth text-magnolia-earth hover:bg-magnolia-earth hover:text-magnolia-cream transition-colors"
+      data-id={id}
+    >
+      -
+    </button>
+    <span class="w-8 text-center">{quantity}</span>
+    <button 
+      class="quantity-btn increase w-8 h-8 rounded-full border-2 border-magnolia-earth text-magnolia-earth hover:bg-magnolia-earth hover:text-magnolia-cream transition-colors"
+      data-id={id}
+    >
+      +
+    </button>
+  </div>
+  <button 
+    class="remove-item text-magnolia-earth/70 hover:text-magnolia-earth transition-colors"
+    data-id={id}
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+    </svg>
+  </button>
+</div>

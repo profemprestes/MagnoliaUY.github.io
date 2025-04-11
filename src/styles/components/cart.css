@@ -1,0 +1,25 @@
+@layer components {
+  .cart-dropdown {
+    @apply absolute top-full right-0 mt-2 w-96 bg-white rounded-lg shadow-lg z-50 transform transition-all duration-300 origin-top;
+  }
+
+  .cart-item {
+    @apply flex items-center gap-4 py-2 border-b border-gray-100;
+  }
+
+  .cart-item-image {
+    @apply w-16 h-16 object-cover rounded;
+  }
+
+  .cart-item-title {
+    @apply font-cormorant text-lg text-magnolia-earth;
+  }
+
+  .cart-item-price {
+    @apply text-sm text-magnolia-earth/70;
+  }
+
+  .cart-form-input {
+    @apply w-full px-3 py-2 border border-magnolia-earth/20 rounded-lg focus:outline-none focus:border-magnolia-earth;
+  }
+}

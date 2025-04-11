@@ -1,0 +1,143 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CartItem from '../components/CartItem.astro';
+import CartSummary from '../components/CartSummary.astro';
+---
+
+<Layout title="Carrito - Magnolia UY">
+  <div class="min-h-screen pt-32 pb-20 bg-magnolia-beige">
+    <div class="container mx-auto px-4">
+      <h1 class="font-cormorant text-4xl md:text-5xl text-magnolia-earth mb-12 text-center">
+        Tu carrito
+      </h1>
+
+      <div class="grid lg:grid-cols-3 gap-8">
+        <div class="lg:col-span-2">
+          <div id="cartItems" class="bg-white rounded-2xl shadow-md p-6">
+            <!-- Cart items will be rendered here -->
+          </div>
+        </div>
+        <div class="lg:col-span-1">
+          <CartSummary total={0} />
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  interface CartItem {
+    id: number;
+    name: string;
+    price: number;
+    quantity: number;
+    image: string;
+  }
+
+  // Initialize cart from localStorage
+  let cart: CartItem[] = JSON.parse(localStorage.getItem('magnoliaCart') || '[]');
+
+  // Render cart items
+  function renderCart() {
+    const cartContainer = document.getElementById('cartItems');
+    if (!cartContainer) return;
+
+    if (cart.length === 0) {
+      cartContainer.innerHTML = `
+        <div class="text-center py-8">
+          <p class="text-magnolia-earth/70">Tu carrito está vacío</p>
+          <a href="/#products" class="inline-block mt-4 bg-magnolia-earth text-magnolia-cream px-6 py-2 rounded-full hover:bg-magnolia-earth/90 transition-colors">
+            Ver productos
+          </a>
+        </div>
+      `;
+      return;
+    }
+
+    cartContainer.innerHTML = cart.map(item => `
+      <div class="flex items-center gap-4 py-4 border-b border-magnolia-earth/10">
+        <img 
+          src="${item.image}" 
+          alt="${item.name}"
+          class="w-24 h-24 object-cover rounded-lg"
+          width="96"
+          height="96"
+        />
+        <div class="flex-1">
+          <h3 class="font-cormorant text-xl text-magnolia-earth">${item.name}</h3>
+          <p class="text-magnolia-earth/70">$${item.price} UYU</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button 
+            class="quantity-btn decrease w-8 h-8 rounded-full border-2 border-magnolia-earth text-magnolia-earth hover:bg-magnolia-earth hover:text-magnolia-cream transition-colors"
+            data-id="${item.id}"
+          >
+            -
+          </button>
+          <span class="w-8 text-center">${item.quantity}</span>
+          <button 
+            class="quantity-btn increase w-8 h-8 rounded-full border-2 border-magnolia-earth text-magnolia-earth hover:bg-magnolia-earth hover:text-magnolia-cream transition-colors"
+            data-id="${item.id}"
+          >
+            +
+          </button>
+        </div>
+        <button 
+          class="remove-item text-magnolia-earth/70 hover:text-magnolia-earth transition-colors"
+          data-id="${item.id}"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    `).join('');
+
+    // Update total
+    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const totalElement = document.querySelector('#whatsappCheckout')?.previousElementSibling;
+    if (totalElement) {
+      totalElement.innerHTML = `<span class="text-magnolia-earth/70">Total</span><span class="font-cormorant text-2xl text-magnolia-earth">$${total} UYU</span>`;
+    }
+  }
+
+  // Event delegation for cart actions
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    const button = target.closest('button');
+    if (!button) return;
+
+    const id = Number(button.dataset.id);
+    
+    if (button.classList.contains('decrease')) {
+      const item = cart.find(i => i.id === id);
+      if (item && item.quantity > 1) {
+        item.quantity--;
+      }
+    } else if (button.classList.contains('increase')) {
+      const item = cart.find(i => i.id === id);
+      if (item) {
+        item.quantity++;
+      }
+    } else if (button.classList.contains('remove-item')) {
+      cart = cart.filter(item => item.id !== id);
+    }
+
+    localStorage.setItem('magnoliaCart', JSON.stringify(cart));
+    renderCart();
+  });
+
+  // WhatsApp checkout
+  document.getElementById('whatsappCheckout')?.addEventListener('click', () => {
+    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const message = `Hola Camila 👋🏽, quiero hacer un pedido desde Magnolia UY:\n\n${
+      cart.map(item => `- ${item.name} (x${item.quantity}) - $${item.price * item.quantity}`).join('\n')
+    }\n\nTotal: $${total} UYU`;
+
+    const whatsappUrl = `https://wa.me/59892275012?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+  });
+
+  // Initial render
+  renderCart();
+</script>

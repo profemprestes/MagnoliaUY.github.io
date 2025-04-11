@@ -1,0 +1,89 @@
+---
+const socialLinks = [
+  { href: 'https://instagram.com/magnoliauy', icon: 'instagram', label: 'Instagram' },
+  { href: 'https://facebook.com/magnoliauy', icon: 'facebook', label: 'Facebook' },
+  { href: 'https://pinterest.com/magnoliauy', icon: 'pinterest', label: 'Pinterest' },
+];
+
+const sections = [
+  {
+    title: 'Contacto',
+    links: [
+      { href: 'mailto:hola@magnoliauy.com', text: 'hola@magnoliauy.com' },
+      { href: 'tel:+59899123456', text: '(+598) 99 123 456' },
+      { href: '#', text: 'Montevideo, Uruguay' },
+    ]
+  },
+  {
+    title: 'Enlaces',
+    links: [
+      { href: '#about', text: 'Sobre nosotros' },
+      { href: '#products', text: 'Productos' },
+      { href: '/privacy', text: 'Política de privacidad' },
+    ]
+  }
+];
+---
+
+<footer class="bg-magnolia-earth text-magnolia-cream py-16">
+  <div class="container mx-auto px-4">
+    <div class="grid md:grid-cols-3 gap-12">
+      <!-- Brand -->
+      <div>
+        <img 
+          src="/logo-white.svg" 
+          alt="Magnolia UY" 
+          class="h-12 mb-6"
+          width="144"
+          height="48"
+        />
+        <p class="text-magnolia-cream/80 leading-relaxed">
+          Creaciones artesanales en macramé para hogares con personalidad.
+        </p>
+        <!-- Social Icons -->
+        <div class="flex space-x-4 mt-6">
+          {socialLinks.map(({ href, icon, label }) => (
+            <a 
+              href={href}
+              class="text-magnolia-cream/80 hover:text-magnolia-cream transition-colors duration-300"
+              aria-label={label}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img 
+                src={`/icons/${icon}.svg`}
+                alt={label}
+                class="w-6 h-6"
+                width="24"
+                height="24"
+              />
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- Sections -->
+      {sections.map(({ title, links }) => (
+        <div>
+          <h3 class="font-cormorant text-2xl mb-6">{title}</h3>
+          <ul class="space-y-3">
+            {links.map(({ href, text }) => (
+              <li>
+                <a 
+                  href={href}
+                  class="text-magnolia-cream/80 hover:text-magnolia-cream hover:underline transition-colors duration-300"
+                >
+                  {text}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-16 pt-8 border-t border-magnolia-cream/20 text-center text-magnolia-cream/60">
+      <p>&copy; {new Date().getFullYear()} Magnolia UY. Todos los derechos reservados.</p>
+    </div>
+  </div>
+</footer>

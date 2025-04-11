@@ -1,0 +1,163 @@
+---
+import CartDropdown from './CartDropdown.astro';
+
+const menuItems = [
+  { href: '#about', text: 'Nosotros' },
+  { href: '#products', text: 'Productos' },
+  { href: '#contact', text: 'Contacto' },
+];
+---
+
+<header class="fixed w-full bg-magnolia-cream/80 backdrop-blur-sm z-50 transition-all duration-300">
+  <div class="container mx-auto px-4 py-4">
+    <nav class="flex items-center justify-between">
+      <a href="/" class="block">
+        <img 
+          src="/logo.svg" 
+          alt="Magnolia UY" 
+          class="h-[60px] w-auto"
+          width="180"
+          height="60"
+        />
+      </a>
+
+      <div class="flex items-center gap-8">
+        <!-- Desktop Menu -->
+        <ul class="hidden lg:flex space-x-8">
+          {menuItems.map(item => (
+            <li>
+              <a 
+                href={item.href}
+                class="text-magnolia-earth hover:text-magnolia-earth/70 transition-colors duration-300 font-cormorant text-xl"
+              >
+                {item.text}
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        <!-- Cart Icon -->
+        <div class="relative">
+          <button
+            id="cartButton"
+            class="text-magnolia-earth hover:text-magnolia-earth/70 transition-colors p-2"
+            aria-label="Carrito"
+          >
+            <div class="relative">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+              </svg>
+              <span
+                id="cartCount"
+                class="absolute -top-2 -right-2 bg-magnolia-earth text-magnolia-cream text-xs rounded-full w-5 h-5 flex items-center justify-center"
+              >0</span>
+            </div>
+          </button>
+
+          <CartDropdown isOpen={false} />
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button 
+          id="menuBtn"
+          class="lg:hidden text-magnolia-earth"
+          aria-label="Menu"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div id="mobileMenu" class="fixed inset-0 bg-magnolia-cream/95 -translate-x-full transition-transform duration-300 lg:hidden">
+        <div class="container mx-auto px-4 py-8">
+          <button 
+            id="closeBtn"
+            class="absolute top-4 right-4 text-magnolia-earth"
+            aria-label="Cerrar menú"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+          <ul class="flex flex-col items-center space-y-6 mt-16">
+            {menuItems.map(item => (
+              <li>
+                <a 
+                  href={item.href}
+                  class="text-magnolia-earth hover:text-magnolia-earth/70 transition-colors duration-300 font-cormorant text-2xl"
+                >
+                  {item.text}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const menuBtn = document.getElementById('menuBtn');
+  const closeBtn = document.getElementById('closeBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const mobileLinks = mobileMenu?.querySelectorAll('a');
+  const cartButton = document.getElementById('cartButton');
+  const cartDropdown = document.getElementById('cartDropdown');
+  const cartCount = document.getElementById('cartCount');
+
+  // Mobile menu functionality
+  const toggleMenu = () => {
+    mobileMenu?.classList.toggle('-translate-x-full');
+    document.body.classList.toggle('overflow-hidden');
+  };
+
+  menuBtn?.addEventListener('click', toggleMenu);
+  closeBtn?.addEventListener('click', toggleMenu);
+  mobileLinks?.forEach(link => {
+    link.addEventListener('click', toggleMenu);
+  });
+
+  // Cart functionality
+  let isCartOpen = false;
+
+  function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem('magnoliaCart') || '[]');
+    const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+    if (cartCount) cartCount.textContent = count.toString();
+  }
+
+  function toggleCart() {
+    isCartOpen = !isCartOpen;
+    if (cartDropdown) {
+      cartDropdown.classList.toggle('scale-95', !isCartOpen);
+      cartDropdown.classList.toggle('opacity-0', !isCartOpen);
+      cartDropdown.classList.toggle('pointer-events-none', !isCartOpen);
+    }
+  }
+
+  cartButton?.addEventListener('click', toggleCart);
+
+  // Close cart when clicking outside
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    if (isCartOpen && !target.closest('#cartDropdown') && !target.closest('#cartButton')) {
+      toggleCart();
+    }
+  });
+
+  // Update cart count on load and when cart changes
+  updateCartCount();
+  window.addEventListener('storage', (e) => {
+    if (e.key === 'magnoliaCart') {
+      updateCartCount();
+    }
+  });
+
+  // Custom event for cart updates
+  document.addEventListener('cartUpdated', () => {
+    updateCartCount();
+  });
+</script>

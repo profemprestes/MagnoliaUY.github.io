@@ -1,0 +1,158 @@
+---
+import { parse } from 'csv-parse/sync';
+import { readFileSync } from 'node:fs';
+import ProductModal from './ProductModal.astro';
+
+interface ProductData {
+  id: string;
+  title: string;
+  category: string;
+  description: string;
+  image: string;
+  price: string;
+}
+
+// Read and parse CSV file
+const csvContent = readFileSync('src/data/products.csv', 'utf-8');
+const products = parse(csvContent, {
+  columns: true,
+  skip_empty_lines: true
+}).map((product: ProductData) => ({
+  ...product,
+  image: `/imagenes${product.image}/principal.webp` // Construct the full path to the image
+}));
+---
+
+<section id="products" class="py-20 bg-magnolia-cream">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-16">
+      <h2 class="font-cormorant text-4xl md:text-5xl text-magnolia-earth mb-6">
+        Catálogo de creaciones Magnolia
+      </h2>
+      <p class="text-magnolia-earth/80 text-lg max-w-2xl mx-auto">
+        Cada pieza está hecha con amor en nuestro taller de Montevideo. 
+        Descubrí la belleza de lo hecho a mano.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {products.map((product: ProductData) => (
+        <article class="bg-white rounded-2xl shadow-md overflow-hidden transition-transform duration-300 hover:scale-[1.02] group">
+          <div class="relative aspect-square overflow-hidden cursor-pointer product-card" data-product-id={product.id}>
+            <img 
+              src={product.image} 
+              alt={product.title}
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              loading="lazy"
+              width="400"
+              height="400"
+            />
+          </div>
+          <div class="p-6">
+            <h3 class="font-cormorant text-2xl text-magnolia-earth mb-2">
+              {product.title}
+            </h3>
+            <p class="text-magnolia-earth/70 text-sm mb-4 line-clamp-2">
+              {product.description}
+            </p>
+            <div class="flex items-center justify-between">
+              <span class="font-cormorant text-xl text-magnolia-earth">
+                ${product.price} UYU
+              </span>
+              <button 
+                class="add-to-cart bg-magnolia-earth text-magnolia-cream px-6 py-2 rounded-full text-sm hover:bg-magnolia-earth/90 transition-colors duration-300"
+                data-product={JSON.stringify({
+                  id: product.id,
+                  name: product.title,
+                  price: Number(product.price),
+                  image: product.image
+                })}
+              >
+                Agregar al carrito
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <ProductModal
+          id={product.id}
+          title={product.title}
+          description={product.description}
+          image={product.image}
+          price={Number(product.price)}
+        />
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  interface Product {
+    id: number;
+    name: string;
+    price: number;
+    image: string;
+  }
+
+  interface CartItem extends Product {
+    quantity: number;
+  }
+
+  // Add to cart functionality
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    const button = target.closest('.add-to-cart');
+    if (!button) return;
+
+    const productData = button.getAttribute('data-product');
+    if (!productData) return;
+
+    const product: Product = JSON.parse(productData);
+    let cart: CartItem[] = JSON.parse(localStorage.getItem('magnoliaCart') || '[]');
+
+    const existingItem = cart.find(item => item.id === product.id);
+    if (existingItem) {
+      existingItem.quantity++;
+    } else {
+      cart.push({ ...product, quantity: 1 });
+    }
+
+    localStorage.setItem('magnoliaCart', JSON.stringify(cart));
+
+    // Show feedback
+    const originalText = button.textContent;
+    button.textContent = '¡Agregado!';
+    button.classList.add('bg-green-600');
+    
+    setTimeout(() => {
+      button.textContent = originalText;
+      button.classList.remove('bg-green-600');
+    }, 2000);
+
+    // Close modal if product was added from modal
+    const modal = button.closest('[id^="modal-"]');
+    if (modal) {
+      modal.classList.add('hidden');
+      document.body.classList.remove('overflow-hidden');
+    }
+
+    // Dispatch custom event for cart update
+    document.dispatchEvent(new CustomEvent('cartUpdated'));
+  });
+
+  // Product card click handler
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    const productCard = target.closest('.product-card');
+    if (!productCard) return;
+
+    const productId = productCard.getAttribute('data-product-id');
+    if (!productId) return;
+
+    const modal = document.getElementById(`modal-${productId}`);
+    if (modal) {
+      modal.classList.remove('hidden');
+      document.body.classList.add('overflow-hidden');
+    }
+  });
+</script>
