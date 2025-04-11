@@ -12,7 +12,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "types": [
-      "astro/client"
+      "astro/client",
+      "vite/client"
     ],
     "noEmit": true
   },

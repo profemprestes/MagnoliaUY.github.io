@@ -62,7 +62,28 @@
 }
 
 .contact-icon {
-  @apply text-2xl text-magnolia-rose transition-transform duration-300;
+  @apply w-6 h-6 min-w-[24px] text-magnolia-rose transition-all duration-300;
+  flex-shrink: 0;
+}
+
+.contact-item {
+  @apply flex items-center gap-3 p-4 rounded-xl transition-all duration-300;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  
+  svg {
+    @apply w-full h-full;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-icon {
+    @apply w-5 h-5;
+  }
+  
+  .contact-item {
+    @apply p-3 gap-2;
+  }
 }
 
 @keyframes zoomBackground {

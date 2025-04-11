@@ -1,0 +1,57 @@
+.contact-section {
+  @apply relative overflow-hidden;
+}
+
+.contact-gradient {
+  @apply bg-gradient-to-r from-magnolia-rose/20 to-magnolia-earth/30;
+  background-size: 200% 200%;
+  animation: gradientAnimation 8s ease infinite;
+}
+
+.contact-container {
+  @apply max-w-7xl mx-auto px-6 py-16 sm:py-24 lg:px-8;
+}
+
+.contact-content {
+  @apply mx-auto max-w-2xl text-center;
+}
+
+.contact-heading {
+  @apply mb-8;
+}
+
+.whatsapp-button {
+  @apply bg-green-600 hover:bg-green-700 text-white;
+  transition: all 0.3s ease;
+}
+
+.whatsapp-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.contact-button-wrapper {
+  @apply mt-10 flex items-center justify-center gap-x-6;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-container {
+    @apply px-4 py-12;
+  }
+  
+  .contact-heading {
+    @apply mb-6;
+  }
+}

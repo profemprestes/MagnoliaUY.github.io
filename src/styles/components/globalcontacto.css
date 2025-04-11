@@ -397,3 +397,65 @@
 }
 
 /* Responsive adjustments remain the same */
+/* Add to existing styles */
+.contact-icon {
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+  color: var(--icon-color, #4a5759);
+  transition: all 0.3s ease;
+}
+
+.card-icon {
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contact-item:hover .contact-icon {
+  color: var(--icon-hover, #edafb8);
+  transform: scale(1.2);
+}
+
+.payment-list li i {
+  width: 20px;
+  margin-right: 10px;
+  color: #4a5759;
+}
+
+/* Add icon color variables */
+:root {
+  --icon-color: #4a5759;
+  --icon-hover: #edafb8;
+}
+
+.card-icon {
+  width: 28px;
+  height: 28px;
+  margin-right: 12px;
+}
+
+.contact-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 12px;
+}
+
+.payment-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+.shipping-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  vertical-align: middle;
+}

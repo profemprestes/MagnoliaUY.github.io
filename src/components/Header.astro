@@ -32,9 +32,10 @@ const menuItems = [
         <!-- Desktop Menu -->
         <ul class="desktop-menu">
           {menuItems.map(item => (
-            <li>
+            <li class="menu-item">
               <a href={item.href} class="menu-link">
-                {item.text}
+                <span class="menu-link-text">{item.text}</span>
+                <span class="menu-link-underline"></span>
               </a>
             </li>
           ))}

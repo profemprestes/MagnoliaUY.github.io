@@ -1,7 +1,7 @@
 ---
 import Heading from "../ui/Heading.astro";
 import Button from "../ui/Button.astro";
-// Removed or corrected import for "dudas.css"
+import "../styles/components/contacto2.css";
 
 const whatsappUrl = "https://wa.me/59898150140?text=Hola%20Magnolia%2C%20me%20gustaría%20consultar%20sobre";
 const title = "¿Te gustaría transformar tus espacios?";
@@ -27,6 +27,7 @@ const buttonIcon = "whatsapp";
             link={whatsappUrl}
             text={buttonText}
             iconName={buttonIcon}
+            class="whatsapp-button"
           />
         </div>
       </div>
