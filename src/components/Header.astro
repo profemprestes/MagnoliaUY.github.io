@@ -1,5 +1,6 @@
 ---
 import CartDropdown from './CartDropdown.astro';
+import '../styles/header.css';
 
 const menuItems = [
   { href: '#about', text: 'Nosotros' },
@@ -8,17 +9,23 @@ const menuItems = [
 ];
 ---
 
-<header class="fixed w-full bg-magnolia-cream/80 backdrop-blur-sm z-50 transition-all duration-300">
+<header class="fixed w-full bg-magnolia-cream/80 backdrop-blur-sm z-50 transition-all duration-300" id="mainHeader">
   <div class="container mx-auto px-4 py-4">
     <nav class="flex items-center justify-between">
-      <a href="/" class="block">
-        <img 
-          src="/logo.svg" 
-          alt="Magnolia UY" 
-          class="h-[60px] w-auto"
-          width="180"
-          height="60"
-        />
+      <a href="/" class="header-logo block">
+        <div class="flex items-center gap-3">
+          <img 
+            src="/logo.svg" 
+            alt="Magnolia UY Logo" 
+            class="h-[40px] w-auto transition-all duration-300"
+            width="80"
+            height="40"
+          />
+          <div class="flex items-center gap-1 logo-text">
+            <span class="font-cormorant text-3xl text-magnolia-earth">Magnolia</span>
+            <span class="font-cormorant text-3xl font-bold text-magnolia-beige/90">UY</span>
+          </div>
+        </div>
       </a>
 
       <div class="flex items-center gap-8">
@@ -160,4 +167,19 @@ const menuItems = [
   document.addEventListener('cartUpdated', () => {
     updateCartCount();
   });
+
+  // Add scroll handler for header
+  const header = document.getElementById('mainHeader');
+  const scrollThreshold = 50;
+
+  function handleScroll() {
+    if (window.scrollY > scrollThreshold) {
+      header?.classList.add('header-scrolled');
+    } else {
+      header?.classList.remove('header-scrolled');
+    }
+  }
+
+  window.addEventListener('scroll', handleScroll);
+  handleScroll(); // Initial check
 </script>

@@ -1,0 +1,41 @@
+.header-logo {
+  transition: all 0.3s ease;
+}
+
+.header-logo img {
+  transition: height 0.3s ease;
+}
+
+.header-logo .logo-text {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Scrolled state */
+.header-scrolled .header-logo img {
+  height: 32px;
+}
+
+.header-scrolled .header-logo .logo-text {
+  transform: scale(0.9);
+}
+
+/* Mobile adjustments */
+@media (max-width: 1024px) {
+  .header-logo img {
+    height: 32px;
+  }
+  
+  .header-logo .logo-text {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .header-logo img {
+    height: 28px;
+  }
+  
+  .header-logo .logo-text {
+    display: none;
+  }
+}
