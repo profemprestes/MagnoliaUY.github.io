@@ -5,9 +5,11 @@ export default {
     extend: {
       colors: {
         'magnolia': {
-          earth: '#8B7355',
-          beige: '#F5F5DC',
-          cream: '#FFFAF0',
+          rose: '#edafb8',    // Soft rose pink
+          cream: '#f7e1d7',   // Warm cream
+          stone: '#dedbd2',   // Neutral stone
+          sage: '#b0c4b1',    // Muted sage green
+          earth: '#4a5759',   // Deep earth tone
         }
       },
       fontFamily: {

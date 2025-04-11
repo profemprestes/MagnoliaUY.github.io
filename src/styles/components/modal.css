@@ -1,25 +1,53 @@
-@layer components {
-  .modal {
-    @apply fixed inset-0 bg-black bg-opacity-50 z-50 hidden;
-  }
+.modal-overlay {
+  @apply fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4;
+}
 
-  .modal-content {
-    @apply inline-block w-full max-w-2xl p-6 my-8 text-left align-middle transition-all transform bg-magnolia-cream shadow-xl rounded-2xl;
-  }
+.modal-content {
+  @apply bg-white rounded-2xl shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto transform transition-all duration-300;
+}
 
-  .modal-close {
-    @apply absolute top-0 right-0 pt-4 pr-4 text-gray-400 hover:text-gray-500;
-  }
+.modal-header {
+  @apply sticky top-0 bg-white p-6 border-b border-gray-100 flex items-center justify-between;
+}
 
-  .modal-image {
-    @apply w-full h-64 object-cover rounded-lg mb-4;
-  }
+.modal-body {
+  @apply p-6;
+}
 
-  .modal-title {
-    @apply font-cormorant text-3xl text-magnolia-earth mb-4;
-  }
+.modal-footer {
+  @apply sticky bottom-0 bg-white p-6 border-t border-gray-100;
+}
 
-  .modal-description {
-    @apply prose text-magnolia-earth/80 mb-6 whitespace-pre-line;
-  }
+.modal-close-button {
+  @apply text-magnolia-earth/50 hover:text-magnolia-earth transition-colors;
+}
+
+/* Animation classes */
+.modal-enter {
+  @apply opacity-0 scale-95;
+}
+
+.modal-enter-active {
+  @apply opacity-100 scale-100;
+}
+
+.modal-exit {
+  @apply opacity-100 scale-100;
+}
+
+.modal-exit-active {
+  @apply opacity-0 scale-95;
+}
+
+/* Scrollbar styling */
+.modal-content::-webkit-scrollbar {
+  @apply w-2;
+}
+
+.modal-content::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+  @apply bg-magnolia-earth/20 rounded-full hover:bg-magnolia-earth/30;
 }

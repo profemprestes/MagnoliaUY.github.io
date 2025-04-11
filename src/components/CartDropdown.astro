@@ -90,6 +90,11 @@ const { isOpen } = Astro.props;
   const emptyCart = document.getElementById('emptyCart');
   const checkoutForm = document.getElementById('checkoutForm');
 
+  // Add cleanup on page unload
+  window.addEventListener('beforeunload', () => {
+    localStorage.removeItem('magnoliaCart');
+  });
+
   function renderCart() {
     const cart: CartItem[] = JSON.parse(localStorage.getItem('magnoliaCart') || '[]');
     
@@ -108,7 +113,7 @@ const { isOpen } = Astro.props;
     cartItems.innerHTML = cart.map(item => `
       <div class="flex items-center gap-4 py-2 border-b border-gray-100">
         <img 
-          src="/imagenes${item.image}/principal.webp" 
+          src="${item.image}" 
           alt="${item.name}"
           class="w-16 h-16 object-cover rounded"
           width="64"

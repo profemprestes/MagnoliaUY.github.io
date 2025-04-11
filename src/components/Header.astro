@@ -1,6 +1,6 @@
 ---
 import CartDropdown from './CartDropdown.astro';
-import '../styles/header.css';
+import '../styles/components/header.css';
 
 const menuItems = [
   { href: '#about', text: 'Nosotros' },
@@ -9,34 +9,31 @@ const menuItems = [
 ];
 ---
 
-<header class="fixed w-full bg-magnolia-cream/80 backdrop-blur-sm z-50 transition-all duration-300" id="mainHeader">
-  <div class="container mx-auto px-4 py-4">
-    <nav class="flex items-center justify-between">
-      <a href="/" class="header-logo block">
-        <div class="flex items-center gap-3">
+<header class="main-header" id="mainHeader">
+  <div class="header-container">
+    <nav class="header-nav">
+      <a href="/" class="header-logo">
+        <div class="logo-wrapper">
           <img 
             src="/logo.svg" 
             alt="Magnolia UY Logo" 
-            class="h-[40px] w-auto transition-all duration-300"
+            class="logo-image"
             width="80"
             height="40"
           />
-          <div class="flex items-center gap-1 logo-text">
-            <span class="font-cormorant text-3xl text-magnolia-earth">Magnolia</span>
-            <span class="font-cormorant text-3xl font-bold text-magnolia-beige/90">UY</span>
+          <div class="logo-text-wrapper">
+            <span class="logo-text">Magnolia</span>
+            <span class="logo-text-accent">UY</span>
           </div>
         </div>
       </a>
 
-      <div class="flex items-center gap-8">
+      <div class="nav-controls">
         <!-- Desktop Menu -->
-        <ul class="hidden lg:flex space-x-8">
+        <ul class="desktop-menu">
           {menuItems.map(item => (
             <li>
-              <a 
-                href={item.href}
-                class="text-magnolia-earth hover:text-magnolia-earth/70 transition-colors duration-300 font-cormorant text-xl"
-              >
+              <a href={item.href} class="menu-link">
                 {item.text}
               </a>
             </li>
@@ -44,20 +41,13 @@ const menuItems = [
         </ul>
 
         <!-- Cart Icon -->
-        <div class="relative">
-          <button
-            id="cartButton"
-            class="text-magnolia-earth hover:text-magnolia-earth/70 transition-colors p-2"
-            aria-label="Carrito"
-          >
-            <div class="relative">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <div class="cart-wrapper">
+          <button id="cartButton" class="cart-button" aria-label="Carrito">
+            <div class="cart-icon-wrapper">
+              <svg xmlns="http://www.w3.org/2000/svg" class="cart-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
               </svg>
-              <span
-                id="cartCount"
-                class="absolute -top-2 -right-2 bg-magnolia-earth text-magnolia-cream text-xs rounded-full w-5 h-5 flex items-center justify-center"
-              >0</span>
+              <span id="cartCount" class="cart-count">0</span>
             </div>
           </button>
 
@@ -65,36 +55,25 @@ const menuItems = [
         </div>
 
         <!-- Mobile Menu Button -->
-        <button 
-          id="menuBtn"
-          class="lg:hidden text-magnolia-earth"
-          aria-label="Menu"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <button id="menuBtn" class="mobile-menu-button" aria-label="Menu">
+          <svg xmlns="http://www.w3.org/2000/svg" class="menu-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
           </svg>
         </button>
       </div>
 
       <!-- Mobile Menu -->
-      <div id="mobileMenu" class="fixed inset-0 bg-magnolia-cream/95 -translate-x-full transition-transform duration-300 lg:hidden">
-        <div class="container mx-auto px-4 py-8">
-          <button 
-            id="closeBtn"
-            class="absolute top-4 right-4 text-magnolia-earth"
-            aria-label="Cerrar menú"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <div id="mobileMenu" class="mobile-menu">
+        <div class="mobile-menu-container">
+          <button id="closeBtn" class="close-button" aria-label="Cerrar menú">
+            <svg xmlns="http://www.w3.org/2000/svg" class="close-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
             </svg>
           </button>
-          <ul class="flex flex-col items-center space-y-6 mt-16">
+          <ul class="mobile-menu-list">
             {menuItems.map(item => (
               <li>
-                <a 
-                  href={item.href}
-                  class="text-magnolia-earth hover:text-magnolia-earth/70 transition-colors duration-300 font-cormorant text-2xl"
-                >
+                <a href={item.href} class="mobile-menu-link">
                   {item.text}
                 </a>
               </li>
@@ -132,7 +111,7 @@ const menuItems = [
 
   function updateCartCount() {
     const cart = JSON.parse(localStorage.getItem('magnoliaCart') || '[]');
-    const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const count = cart.reduce((sum: number, item: { quantity: number }) => sum + item.quantity, 0);
     if (cartCount) cartCount.textContent = count.toString();
   }
 

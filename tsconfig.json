@@ -1,15 +1,16 @@
 {
   "extends": "astro/tsconfigs/strict",
-  "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist"],
   "compilerOptions": {
     "types": ["node"],
-    "moduleResolution": "node",
+    "moduleResolution": "NodeNext",
     "allowSyntheticDefaultImports": true,
-    "resolveJsonModule": true,
+    "module": "NodeNext",
+    "target": "ESNext",
     "baseUrl": ".",
     "paths": {
       "csv-parse/*": ["node_modules/csv-parse/*"]
     }
-  }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
 }

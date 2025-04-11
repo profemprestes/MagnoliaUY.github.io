@@ -7,18 +7,23 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    @apply selection:bg-magnolia-sage/20 selection:text-magnolia-earth;
   }
 
   body {
-    @apply font-lato bg-magnolia-cream min-h-screen;
+    @apply font-lato bg-magnolia-cream min-h-screen text-magnolia-earth/80;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-cormorant text-magnolia-earth;
+    @apply font-cormorant text-magnolia-earth tracking-wide;
+  }
+
+  a {
+    @apply transition-all duration-300 hover:text-magnolia-rose;
   }
 }
 
-/* Custom animations */
+/* Enhanced animations */
 @layer utilities {
   @keyframes fadeIn {
     from { 
@@ -31,23 +36,98 @@
     }
   }
 
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
   .fade-in {
-    animation: fadeIn 1s ease-out forwards;
+    animation: fadeIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  .slide-in {
+    animation: slideIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  .scale-in {
+    animation: scaleIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  .hover-lift {
+    @apply transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg;
+  }
+
+  .hover-glow {
+    @apply transition-all duration-300 hover:shadow-[0_0_15px_rgba(176,196,177,0.3)];
   }
 }
 
-/* Custom components */
+/* Enhanced components */
 @layer components {
   .btn-primary {
-    @apply bg-magnolia-earth text-magnolia-cream px-6 py-2 rounded-full hover:bg-magnolia-earth/90 transition-colors duration-300;
+    @apply bg-magnolia-earth text-magnolia-cream px-6 py-2.5 rounded-full 
+           hover:bg-magnolia-rose transition-all duration-300
+           shadow-[0_2px_10px_rgba(74,87,89,0.2)]
+           hover:shadow-[0_4px_20px_rgba(237,175,184,0.4)]
+           active:transform active:scale-95;
   }
 
   .btn-outline {
-    @apply border-2 border-magnolia-earth text-magnolia-earth px-6 py-2 rounded-full hover:bg-magnolia-earth hover:text-magnolia-cream transition-colors duration-300;
+    @apply border-2 border-magnolia-earth text-magnolia-earth px-6 py-2.5 rounded-full 
+           hover:bg-magnolia-sage hover:text-magnolia-cream transition-all duration-300
+           shadow-[0_2px_10px_rgba(176,196,177,0.1)]
+           hover:shadow-[0_4px_20px_rgba(176,196,177,0.3)]
+           active:transform active:scale-95;
   }
 
   .container {
-    @apply max-w-7xl mx-auto px-4;
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .card {
+    @apply bg-white rounded-2xl shadow-md overflow-hidden
+           transition-all duration-300
+           hover:shadow-xl hover:transform hover:-translate-y-1;
+  }
+
+  .input-primary {
+    @apply w-full px-4 py-2 rounded-lg border border-magnolia-stone/20
+           focus:outline-none focus:border-magnolia-sage
+           focus:ring-2 focus:ring-magnolia-sage/20
+           transition-all duration-300;
+  }
+
+  .section-padding {
+    @apply py-16 sm:py-20 md:py-24;
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-magnolia-earth to-magnolia-rose
+           bg-clip-text text-transparent;
   }
 }
 
+/* Scrollbar styling */
+@layer utilities {
+  .custom-scrollbar {
+    @apply scrollbar-thin scrollbar-thumb-magnolia-sage/40 
+           scrollbar-track-transparent hover:scrollbar-thumb-magnolia-sage/60;
+  }
+}

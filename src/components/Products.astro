@@ -19,7 +19,7 @@ const products = parse(csvContent, {
   skip_empty_lines: true
 }).map((product: ProductData) => ({
   ...product,
-  image: `/imagenes${product.image}/principal.webp` // Construct the full path to the image
+  id: product.id || String(Math.random()).slice(2)
 }));
 ---
 
